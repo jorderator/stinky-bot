@@ -1,0 +1,9 @@
+# Ignore volatile gradle files 
+/.gradle/
+/build/
+
+# Ignore IDEA project files
+/.idea/
+
+# Ignore file for sending to running server
+/send.sh
