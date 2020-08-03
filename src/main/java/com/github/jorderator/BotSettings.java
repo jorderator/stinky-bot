@@ -2,11 +2,14 @@ package com.github.jorderator;
 
 import org.javacord.api.entity.activity.ActivityType;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class BotSettings {
     public static String prefix = ".";
+    public static Color embedColor = new Color(15, 58, 23);
 
     public static Boolean stinkyToggle;
 
@@ -21,6 +24,12 @@ public class BotSettings {
         inactiveActivity = new HashMap<>();
         inactiveActivity.put("type", ActivityType.PLAYING);
         inactiveActivity.put("value", "taking a break... (toggle with 'toggle stinky')");
+    }
+
+    // TODO: fix this, because it doesn't seem to be instantiating properly
+    public static ArrayList<String> suggestions;
+    static {
+        suggestions = new ArrayList<>();
     }
 
 

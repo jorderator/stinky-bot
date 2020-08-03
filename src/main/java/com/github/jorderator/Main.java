@@ -33,7 +33,7 @@ public class Main {
             Responses.respondToUser(event.getMessageAuthor().getId(), event);
         }
 
-        //Responses.respondToMessage(event);
+        Responses.respondToMessage(event.getMessageContent(), event);
     }
 
     public static void main(String[] args) {
