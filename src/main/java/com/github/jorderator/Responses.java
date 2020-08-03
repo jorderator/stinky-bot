@@ -18,10 +18,10 @@ public class Responses {
     }
 
     // Method for more general message responses, such as elements of text or links, etc
-    public static void respondToMessage(MessageCreateEvent event) {
+    public static void respondToMessage(String content, MessageCreateEvent event) {
         // example code:
         /*
-        if (event.getMessageContent().toLowerCase().contains("testing") && event.getMessageAuthor().isRegularUser()) {
+        if (content.toLowerCase().contains("testing") && event.getMessageAuthor().isRegularUser()) {
             event.getChannel().sendMessage("hello, yes? testing?");
         }
          */
