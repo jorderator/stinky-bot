@@ -84,10 +84,12 @@ public class Main {
         while (true) {
             System.out.print("\n enter 'stop' to close the bot: ");
             if (in.nextLine().equals("stop")) {
+                saveState();
                 System.exit(0);
             }
         }
     }
+
 
     public static void saveState() {
         JSONObject botState = new JSONObject();
