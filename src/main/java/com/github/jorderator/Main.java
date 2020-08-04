@@ -23,22 +23,22 @@ public class Main {
     // TODO: add support for prefix changing
 
     public static void messageCreateHandling(MessageCreateEvent event) {
-        // TODO: add proper commands (including administration etc?)
         // Commands:
         if (Commands.processCommands(event.getMessageContent(), event))
             return;
 
         // User responses:
-        if (BotSettings.stinkyToggle) {
+        if (BotSettings.stinkyToggle)
             Responses.respondToUser(event.getMessageAuthor().getId(), event);
-        }
 
-        Responses.respondToMessage(event.getMessageContent(), event);
+        if (BotSettings.messageToggle)
+            Responses.respondToMessage(event.getMessageContent(), event);
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         BotSettings.stinkyToggle = false;
+        BotSettings.messageToggle = true;
 
         // Get discord api token from a 'token.txt' file, in current working path
         // TODO: Implement token system better
@@ -74,6 +74,10 @@ public class Main {
                 System.exit(0);
             }
         }
+    }
+
+    public static void initialiseBot() {
+
     }
 
 }

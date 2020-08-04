@@ -6,26 +6,29 @@
 
  Currently the bot can:
 
-  - respond to a few users when they send something, with a defined message.
-  - respond to certain message contents
-  - toggle user responses with 'toggle stinky'
+  - Respond to a few users when they send something, with a defined message, and toggle user responses with '.toggle stinky'.
+  - Respond to certain message contents, and toggle with '.toggle message'
+  - Display help, invites, and store and display suggestions.
 
 ## Planned functionality
 
- In the next update, the bot will likely have:
+ In the next update, the bot will have:
 
-  - Several other commands, such as for generating it's bot invite link.
-  - Further user responses.
-  - Potentially an overhaul of the response system, to allow more loosely coupled adding of user responses.
+  - Persistent storage of configurations and bot suggestions, stored in a file (periodically? and) between up time.
  
- Further planned features include:
+ Further planned project features include:
 
   - Making the bot give it's responses either randomly or on a timeout, to prevent it constantly responding 
      to the defined users when running. This could be added as default, or as a separate mode.
-  - A proper command system, akin to the response system
-  - toggling of general, non-user responses
-  - Any suggestions by friends.
   - Adding command line option to specify location of the token file
+  - Potentially an overhaul of the response system, to allow more loosely coupled adding of user responses.
+
+ And planned bot features/commands include:
+
+  - Image processing, such as 'deep-frying' or distorting etc user supplied images.
+  - Generating ''''server rules'''' supplied by users, parodying real server rules.
+  - Voting system, such as for games-nights, or jokes, etc.
+  - Any suggestions by friends.
 
 ## Development
 

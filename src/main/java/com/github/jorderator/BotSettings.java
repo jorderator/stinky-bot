@@ -12,7 +12,9 @@ public class BotSettings {
     public static Color embedColor = new Color(15, 58, 23);
 
     public static Boolean stinkyToggle;
+    public static Boolean messageToggle;
 
+    // TODO: implement this as a list of different statuses. probably change to more general statuses as well
     public static Map<String, Object> activeActivity;
     static {
         activeActivity = new HashMap<>();
@@ -26,12 +28,10 @@ public class BotSettings {
         inactiveActivity.put("value", "taking a break... (toggle with 'toggle stinky')");
     }
 
-    // TODO: fix this, because it doesn't seem to be instantiating properly
     public static ArrayList<String> suggestions;
     static {
         suggestions = new ArrayList<>();
     }
-
 
 
     public static void updateStatus() {

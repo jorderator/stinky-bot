@@ -8,10 +8,9 @@ import java.util.regex.Pattern;
 
 public class Commands {
 
-    // TODO: check this, because it isn't reaching .suggest
     private static Pattern suggestPattern;
     static {
-        suggestPattern = Pattern.compile("$\\" + BotSettings.prefix + "suggest (.+)^");
+        suggestPattern = Pattern.compile("^\\" + BotSettings.prefix + "suggest (.+)$");
     }
 
     public static Boolean processCommands(String content, MessageCreateEvent event) {
@@ -21,8 +20,9 @@ public class Commands {
                     .setColor(BotSettings.embedColor)
                     .setDescription("Command list for stinky-bot.")
                     .addField("Commands:", "---------------")
-                    .addField(".help", "displays this page")
+                    .addInlineField(".help", "displays this page")
                     .addInlineField(".toggle stinky", "toggle whether to respond to certain user messages")
+                    .addInlineField(".toggle message", "toggle whether to respond to message contents")
                     .addInlineField(".invite", "get the bot invite link, to invite it to a server")
                     .addInlineField(".suggestions", "list bot feature suggestions")
                     .addInlineField(".suggest", "submit a feature suggestion for the bot")
@@ -41,6 +41,13 @@ public class Commands {
             return true;
         }
 
+        if (content.equals(BotSettings.prefix + "toggle message")) {
+            BotSettings.messageToggle = !BotSettings.messageToggle;
+            event.getChannel().sendMessage("message-detecting toggled to " + (BotSettings.messageToggle? "on": "off"));
+
+            return true;
+        }
+
         if (content.equals(BotSettings.prefix + "invite")) {
             event.getChannel().sendMessage("Invite me to a server with: " + Main.api.createBotInvite());
 
@@ -48,10 +55,9 @@ public class Commands {
         }
 
         if (content.equals(BotSettings.prefix + "suggestions")) {
-            System.out.println("Made it to .suggestions");
-            String suggestionsString = "";
-            for (String suggestion : BotSettings.suggestions) {
-                suggestionsString = suggestionsString + "\n - " + suggestion;
+            String suggestionsString = (BotSettings.suggestions.size() < 1? "Nothing here currently": "");
+            for (int i = 0; i < BotSettings.suggestions.size(); i++) {
+                suggestionsString = suggestionsString + "\n " + (i+1) + " - " + BotSettings.suggestions.get(i);
             }
 
             EmbedBuilder suggestionsEmbed = new EmbedBuilder()
@@ -68,7 +74,6 @@ public class Commands {
 
         Matcher m = suggestPattern.matcher(content);
         if (m.find()) {
-            System.out.println("Made it to .suggest");
             String value = m.group(1);
             BotSettings.suggestions.add(value);
             event.getChannel().sendMessage('"' + value + "\" added to suggestions.");
@@ -77,10 +82,6 @@ public class Commands {
         }
 
         return false;
-    }
-
-    public static void initialiseBot() {
-
     }
 
 }
