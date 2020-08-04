@@ -12,7 +12,7 @@ public class Commands {
     private static Pattern delsuggestPattern;
     static {
         suggestPattern = Pattern.compile("^\\" + BotSettings.prefix + "suggest (.+)$");
-        delsuggestPattern = Pattern.compile("^\\" + BotSettings.prefix + "del(?:ete)?suggest ([0-9]+)$");
+        delsuggestPattern = Pattern.compile("^\\" + BotSettings.prefix + "delsuggest ([0-9]+)$");
     }
 
     public static Boolean processCommands(String content, MessageCreateEvent event) {
@@ -29,7 +29,8 @@ public class Commands {
                     .addInlineField(".toggle message", "toggle whether to respond to message contents")
                     .addInlineField(".invite", "get the bot invite link, to invite it to a server")
                     .addInlineField(".suggestions", "list bot feature suggestions")
-                    .addInlineField(".suggest", "submit a feature suggestion for the bot")
+                    .addInlineField(".suggest [text]", "submit a feature suggestion for the bot")
+                    .addInlineField(".delsuggest [id]", "delete one of the bot suggestions")
                     .setFooter("stinky-bot", event.getApi().getYourself().getAvatar());
 
             event.getChannel().sendMessage(helpEmbed);
