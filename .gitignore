@@ -7,3 +7,6 @@
 
 # Ignore file for sending to running server
 /send.sh
+
+# Also ignore the bot's json state file, wherever it is
+bot-state.json

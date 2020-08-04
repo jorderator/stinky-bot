@@ -9,11 +9,15 @@ import java.util.regex.Pattern;
 public class Commands {
 
     private static Pattern suggestPattern;
+    private static Pattern delsuggestPattern;
     static {
         suggestPattern = Pattern.compile("^\\" + BotSettings.prefix + "suggest (.+)$");
+        delsuggestPattern = Pattern.compile("^\\" + BotSettings.prefix + "del(?:ete)?suggest ([0-9]+)$");
     }
 
     public static Boolean processCommands(String content, MessageCreateEvent event) {
+        Matcher m;
+
         if (content.equals(BotSettings.prefix + "help")) {
             EmbedBuilder helpEmbed = new EmbedBuilder()
                     .setTitle("Stinky-bot help:")
@@ -36,6 +40,7 @@ public class Commands {
             BotSettings.stinkyToggle = !BotSettings.stinkyToggle;
             event.getChannel().sendMessage("stinky-detecting toggled to " + (BotSettings.stinkyToggle? "on": "off"));
 
+            Main.saveState();
             BotSettings.updateStatus();
 
             return true;
@@ -45,6 +50,7 @@ public class Commands {
             BotSettings.messageToggle = !BotSettings.messageToggle;
             event.getChannel().sendMessage("message-detecting toggled to " + (BotSettings.messageToggle? "on": "off"));
 
+            Main.saveState();
             return true;
         }
 
@@ -72,11 +78,31 @@ public class Commands {
             return true;
         }
 
-        Matcher m = suggestPattern.matcher(content);
+        // .suggest
+        m = suggestPattern.matcher(content);
         if (m.find()) {
             String value = m.group(1);
             BotSettings.suggestions.add(value);
             event.getChannel().sendMessage('"' + value + "\" added to suggestions.");
+
+            Main.saveState();
+            return true;
+        }
+
+        // .del[ete]suggest
+        m = delsuggestPattern.matcher(content);
+        if (m.find()) {
+            int id = Integer.parseInt(m.group(1)) - 1;
+
+            try {
+                String suggestionText = BotSettings.suggestions.remove(id);
+                event.getChannel().sendMessage('"' + suggestionText + "\" deleted from suggestions.");
+
+                Main.saveState();
+            }
+            catch (IndexOutOfBoundsException e) {
+                event.getChannel().sendMessage("There is no suggestion with that id.");
+            }
 
             return true;
         }
